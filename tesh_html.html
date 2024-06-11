@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>Welcome to Skin Burn Check</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+            }
+            .card {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            h1 {
+                margin-bottom: 20px;
+            }
+            .file-input {
+                display: none;
+            }
+            .custom-file-upload {
+                display: inline-block;
+                padding: 10px 20px;
+                cursor: pointer;
+                border: 2px solid #4CAF50;
+                border-radius: 5px;
+                color: #4CAF50;
+                background-color: white;
+                transition: all 0.3s ease;
+            }
+            .custom-file-upload:hover {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .file-container {
+                margin-bottom: 20px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #preview {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                display: none;
+                max-width: 100%;
+                width: 350px;
+                height: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>Welcome to Our Skin Burn Check</h1>
+            <p>Please take a picture to check skin burn level</p>
+            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <div class="file-container">
+                    <label for="file-upload" class="custom-file-upload">
+                        Choose Image
+                    </label>
+                    <input id="file-upload" class="file-input" type="file" name="file" accept="image/*" capture="camera" onchange="previewFile()">
+                </div>
+                <img id="preview" src="" alt="Image preview">
+                <button type="button" onclick="uploadImage()">Upload Image</button>
+            </form>
+            <div id="result" style="margin-top: 20px;"></div>
+        </div>
+        <script>
+            function previewFile() {
+                const preview = document.getElementById('preview');
+                const file = document.getElementById('file-upload').files[0];
+                const reader = new FileReader();
+
+                reader.addEventListener('load', function () {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            async function uploadImage() {
+                const form = document.getElementById('upload-form');
+                const formData = new FormData(form);
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('result').innerText = `Label: ${result.Label}, Score: ${result.Score}`;
+            }
+        </script>
+    </body>
+</html>
