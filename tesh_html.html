@@ -131,16 +131,19 @@
                 let explanation = "";
                 switch(result.Label) {
                     case "1st_degree burn":
-                        explanation = "First-degree burns affect only the outer layer of the skin, causing pain, redness, and swelling. It is recommended to cool the burn under cool running water for 10-15 minutes and cover with a sterile, non-adhesive bandage.";
+                        explanation = "<p>Luka bakar derajat satu, biasa disebabkan oleh sunburn dalam waktu lama, api dari kompor, bahan kimia, dan sebagainya </p>" +
+                                      "<p>Bekas luka akan memudar dalam 7-10 hari dengan adanya pergantian kulit dan sel-sel baru. Pemberian salep akan membantu meredakan nyeri</p>" ;
                         break;
                     case "2nd_degree burn":
-                        explanation = "Second-degree burns affect both the outer layer and the underlying layer of skin, causing pain, redness, swelling, and blisters. Do not pop blisters. Seek medical attention if the burn is larger than 3 inches.";
+                        explanation = "<p>Luka bakar derajat dua (fibrinous exudate) merupakan luka bakar yang memengaruh kulit luar (epidermis) dan kulit tengah (dermis) </p>" +
+                                      "<p>Bekas luka akan pulih dalam 1-3 minggu, sangat dianjurkan untuk memberikan obat anitibiotik.</p>";
                         break;
                     case "3rd_degree burn":
-                        explanation = "Third-degree burns affect deep layers of skin and tissues underneath, causing white or blackened, charred skin that may be numb. These burns require immediate medical attention.";
+                        explanation = "<p>Luka bakar derajat tiga meruapakn luka bakar yang merusak hingga lapisan kulit terbawah dan memicu kerusakan pada tulang dan otot</p>" +
+                                      "<p>Pasien dengan luka bakar derajat tiga memerlukan prosedur operasi, termasuk suntikan antibiotik dan infus.</p>";
                         break;
                     case "No Sunburn":
-                        explanation = "No sunburn detected. Keep protecting your skin by applying sunscreen and wearing protective clothing.";
+                        explanation = "<p>Luka bakar tidak terdeteksi, gunakan sunscreen dan pakaian tertutup untuk melindungi kulit dari panas.</p>";
                         break;
                     default:
                         explanation = "Please consult a medical professional for a detailed examination.";
