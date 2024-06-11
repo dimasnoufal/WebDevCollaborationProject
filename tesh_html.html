@@ -63,6 +63,24 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            .info-section {
+                margin-top: 30px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .info-section h2, .info-section h3 {
+                color: #333;
+            }
+            .info-section p, .info-section ul {
+                color: #666;
+                line-height: 1.6;
+            }
+            .info-section ul {
+                list-style-type: disc;
+                margin-left: 20px;
+            }
         </style>
     </head>
     <body>
@@ -80,23 +98,25 @@
                 <button type="button" onclick="uploadImage()">Upload Image</button>
             </form>
             <div id="result" style="margin-top: 20px;"></div>
+            <!-- Elemen baru untuk menampilkan penjelasan -->
+            <div id="explanation" style="margin-top: 20px;"></div>
         </div>
         <script>
             function previewFile() {
                 const preview = document.getElementById('preview');
                 const file = document.getElementById('file-upload').files[0];
                 const reader = new FileReader();
-
+        
                 reader.addEventListener('load', function () {
                     preview.src = reader.result;
                     preview.style.display = 'block';
                 }, false);
-
+        
                 if (file) {
                     reader.readAsDataURL(file);
                 }
             }
-
+        
             async function uploadImage() {
                 const form = document.getElementById('upload-form');
                 const formData = new FormData(form);
@@ -106,6 +126,29 @@
                 });
                 const result = await response.json();
                 document.getElementById('result').innerText = `Label: ${result.Label}, Score: ${result.Score}`;
+        
+                // Menentukan penjelasan berdasarkan label
+                let explanation = "";
+                switch(result.Label) {
+                    case "1st_degree burn":
+                        explanation = "First-degree burns affect only the outer layer of the skin, causing pain, redness, and swelling. It is recommended to cool the burn under cool running water for 10-15 minutes and cover with a sterile, non-adhesive bandage.";
+                        break;
+                    case "2nd_degree burn":
+                        explanation = "Second-degree burns affect both the outer layer and the underlying layer of skin, causing pain, redness, swelling, and blisters. Do not pop blisters. Seek medical attention if the burn is larger than 3 inches.";
+                        break;
+                    case "3rd_degree burn":
+                        explanation = "Third-degree burns affect deep layers of skin and tissues underneath, causing white or blackened, charred skin that may be numb. These burns require immediate medical attention.";
+                        break;
+                    case "No Sunburn":
+                        explanation = "No sunburn detected. Keep protecting your skin by applying sunscreen and wearing protective clothing.";
+                        break;
+                    default:
+                        explanation = "Please consult a medical professional for a detailed examination.";
+                        break;
+                }
+        
+                // Menampilkan penjelasan
+                document.getElementById('explanation').innerHTML = explanation;
             }
         </script>
     </body>
