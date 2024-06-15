@@ -125,7 +125,7 @@
                     body: formData
                 });
                 const result = await response.json();
-                document.getElementById('result').innerText = `Label: ${result.Label}, Score: ${result.Score}`;
+                document.getElementById('result').innerText = `Label: <strong>${result.Label}, Score: ${parseFloat(result.Score * 100).toFixed(2)}%`;
         
                 // Menentukan penjelasan berdasarkan label
                 let explanation = "";
